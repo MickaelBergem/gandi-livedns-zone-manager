@@ -1,3 +1,6 @@
+import os
+
+
 class bcolors(object):
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -20,3 +23,24 @@ def print_record(record):
             "{value}"
             .format(rec=record, value=rec_value, bcol=bcolors)
         )
+
+
+def load_api_key():
+    """
+    Try to load the API key from:
+    * the configuration file `api_key.txt`
+    * the GANDI_API_KEY environment variable
+    If the key is not found, return None.
+    """
+    try:
+        with open('./api_key.txt', 'r') as file:
+            key_file = file.read().strip()
+    except FileNotFoundError:
+        pass
+    else:
+        if key_file:
+            return key_file
+
+    key_env = os.environ.get('GANDI_API_KEY')
+    # If the variable is not defined, returns None
+    return key_env

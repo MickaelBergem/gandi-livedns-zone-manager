@@ -2,7 +2,9 @@
 
 The goal of this tool is to display and version the Gandi DNS records of a zone, through the LiveDNS API.
 
-You will need your API key from the Security page in [your Gandi account](https://account.gandi.net/).
+You will need your API key from the Security page in
+[your Gandi account](https://account.gandi.net/).
+Store it in a `api_key.txt` file, or in an environment variable, like in the following example:
 
 ```bash
 $ export GANDI_API_KEY=your_api_key

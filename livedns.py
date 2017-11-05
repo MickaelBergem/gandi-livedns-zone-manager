@@ -1,14 +1,13 @@
 """
 Update the DNS zone for a given domain using Gandi's LiveDNS API
 """
-import os
 import sys
 
 import requests
-from utils import bcolors, print_record
+from utils import bcolors, load_api_key, print_record
 
 API_URL = 'https://dns.api.gandi.net/api/v5'
-API_KEY = os.environ.get('GANDI_API_KEY')
+API_KEY = load_api_key()
 
 
 def api_call(url, method='GET', payload=None):
