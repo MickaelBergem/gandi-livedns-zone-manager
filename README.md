@@ -8,14 +8,26 @@ Store it in a `api_key.txt` file, or in an environment variable, like in the fol
 
 ```bash
 $ export GANDI_API_KEY=your_api_key
-$ python3 livedns.py
-== Zone example.org ==
-25 records in this zone:
- MX     10800   @                       50 fb.mail.gandi.net.
- MX     10800   @                       10 spool.mail.gandi.net.
- CNAME  10800   example-cname           blog.securem.eu.
- A      1200    aws-server              1.2.3.4
- A      1200    aws-another-server      5.6.7.8
+$ python3 livedns.py view
+== Zone test-zone [587549ec-c25f-11e7-9d8f-00163e6dc886] ==
+        No domain associated with this zone.
+        1 records in this zone:
+
+        CNAME   10800   example                example.org.
+```
+
+## Usage
+
+```bash
+# View all records for all zones
+python3 livedns.py view
+# Pull the records and store them in the /zones folder
+python3 livedns.py pull
+ls -l zones
+# Create a new zone
+python3 livedns.py new test-zone
+# Push (upload) the local records stored in /zones to the API
+python3 livedns.py push
 ```
 
 ## Requirements
