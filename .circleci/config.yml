@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - deps-pip-v1
+      - run:
+          name: Install the dependencies
+          command: |
+            python3 -m venv env
+            . env/bin/activate
+            pip install -U requests flake8
+      - save_cache:
+          key: deps-pip-v1
+          paths:
+            - "env"
+
+      - run:
+          name: Run all tests
+          command: |
+            . env/bin/activate
+            flake8
