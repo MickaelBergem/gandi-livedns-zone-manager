@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Update the DNS zone for a given domain using Gandi's LiveDNS API
 """
