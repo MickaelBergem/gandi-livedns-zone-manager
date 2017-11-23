@@ -36,6 +36,12 @@ def api_call(url, method='GET', payload=None, **kwargs):
         headers.update(kwargs.pop('headers'))
 
     response = requests.request(method, url, data=payload, headers=headers, **kwargs)
+
+    if response.status_code >= 400:
+        print(bcolors.FAIL + "The API returned an error:" + bcolors.ENDC)
+        print(response.json())
+        sys.exit(1)
+
     return response
 
 
