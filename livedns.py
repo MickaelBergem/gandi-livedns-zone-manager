@@ -120,7 +120,7 @@ def push_zones(options, *args, **kwargs):
             continue
 
         print("{bcolors.MINOR}\tUploading the zone...{bcolors.ENDC} ".format(bcolors=bcolors), end='')
-        resp = api_call(zone['zone_records_href'], method='PUT', payload=records_raw)
+        resp = api_call(zone['zone_records_href'], method='PUT', payload=records_raw, headers={"content-type": "text/plain"})
         if resp.status_code != 201:
             print(bcolors.FAIL + "\tWrite failed (?)\n" + bcolors.ENDC)
             print("{bcolors.FAIL}{resp}{bcolors.ENDC}".format(bcolors=bcolors, resp=resp.json()))
