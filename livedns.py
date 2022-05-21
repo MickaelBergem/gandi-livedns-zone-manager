@@ -90,13 +90,17 @@ def pull_zones(*args, **kwargs):
     print("\n" + bcolors.OKBLUE + "Written all zones in " + ZONES_FOLDER + bcolors.ENDC)
 
 
-def push_zones(*args, **kwargs):
+def push_zones(options, *args, **kwargs):
     """ Push the zones to the API from the zone files on disk """
     zone_files = glob.glob(ZONES_FOLDER + '*_*.txt')
     pattern = re.compile(r'(.*)_(.*)\.txt')
     for zone in zone_files:
         zone_name, zone_uuid = re.match(pattern, os.path.basename(zone)).groups()
         print("{bcolors.MINOR}Found zone{bcolors.ENDC} {name} {bcolors.MINOR}({uuid}){bcolors.ENDC}".format(bcolors=bcolors, name=zone_name, uuid=zone_uuid))
+
+        if options.zone_name and options.zone_name != zone_name:
+            print("  {bcolors.MINOR}Ignoring zone{bcolors.ENDC} {name}".format(bcolors=bcolors, name=zone_name))
+            continue
 
         # Read the zone file
         with open(zone, 'r') as zone_file:
@@ -165,6 +169,10 @@ if __name__ == '__main__':
         'command',
         choices=ALLOWED_CHOICES.keys(),
         help='the action you want to perform',
+    )
+    parser.add_argument(
+        '-n', '--zone_name',
+        help='the name of the zone to use',
     )
     parser.add_argument('options', nargs='*', help="command-specific options")
 
